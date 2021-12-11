@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Company>Integration Playbook</Company>
+    <Description>This is a library to help you perform integration testing with logic apps standard</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/michaelstephensonuk/IntegrationPlaybook-LogicApp-Standard-Testing</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/michaelstephensonuk/IntegrationPlaybook-LogicApp-Standard-Testing</RepositoryUrl>
+    <Copyright>Integration-Playbook.io</Copyright>
+    <Authors>Michael Stephenson</Authors>
+    <PackageLicenseFile>License.md</PackageLicenseFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Runtime.Caching" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\License.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
