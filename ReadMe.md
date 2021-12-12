@@ -16,6 +16,9 @@ This framework is intended to help you do that next level of automated integrati
 You will be able to read more about the approach in the integration playbook at the below address.
 https://www.integration-playbook.io/docs/integration-testing
 
+You can also get the package for this project from nuget here
+https://www.nuget.org/packages/IPB.LogicApp.Standard.Testing/
+
 # Approach
 
 In this framework ive tried to keep it simple and easy to use and have tried to minimize the number of dependancies on external packages.
