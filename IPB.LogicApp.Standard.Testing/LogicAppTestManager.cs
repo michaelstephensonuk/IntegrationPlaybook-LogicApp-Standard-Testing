@@ -83,7 +83,14 @@ namespace IPB.LogicApp.Standard.Testing
             _workflowRunHelper.GetRunDetails();
         }
 
-        
+        public void LoadWorkflowRunHistory(string runId)
+        {            
+            _workflowRunHelper = _workflowHelper.GetWorkflowRunHelper(runId);
+            _workflowRunHelper.GetRunActions();
+            _workflowRunHelper.GetRunDetails();
+        }
+
+
         /// <summary>
         /// Get the overall status of the workfow
         /// </summary>
