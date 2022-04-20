@@ -56,6 +56,8 @@ namespace LogicApp.Testing.Example
 
             //Check some of the additional helper methods
             var actionStatusJson = logicAppTestManager.GetActionJson("Response");
+            var inputMessage = logicAppTestManager.GetActionInputMessage("Response");
+            var outputMessage = logicAppTestManager.GetActionOutputMessage("Response");
 
             var runsSince = logicAppTestManager.GetRunsSince(startDateTime);
             var runSince = logicAppTestManager.GetMostRecentRunSince(startDateTime);

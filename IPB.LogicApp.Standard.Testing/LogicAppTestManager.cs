@@ -130,6 +130,40 @@ namespace IPB.LogicApp.Standard.Testing
         }
 
         /// <summary>
+        /// Get the input message to an action
+        /// </summary>
+        /// <param name="actionName"></param>
+        /// <param name="refreshActions"></param>
+        /// <param name="formatActionName"></param>
+        /// <returns></returns>
+        public string GetActionInputMessage(string actionName, bool refreshActions = false, bool formatActionName = true)
+        {
+            var action = _workflowRunHelper.GetActionJson(actionName, refreshActions, formatActionName);
+            var url = action["inputsLink"]?["uri"]?.Value<string>();
+            var httpClient = new HttpClient();
+            var response = httpClient.GetAsync(url).Result;
+            response.EnsureSuccessStatusCode();
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        /// <summary>
+        /// Get the input message to an action
+        /// </summary>
+        /// <param name="actionName"></param>
+        /// <param name="refreshActions"></param>
+        /// <param name="formatActionName"></param>
+        /// <returns></returns>
+        public string GetActionOutputMessage(string actionName, bool refreshActions = false, bool formatActionName = true)
+        {
+            var action = _workflowRunHelper.GetActionJson(actionName, refreshActions, formatActionName);
+            var url = action["outputsLink"]?["uri"]?.Value<string>();
+            var httpClient = new HttpClient();
+            var response = httpClient.GetAsync(url).Result;
+            response.EnsureSuccessStatusCode();
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        /// <summary>
         /// Get the action json if you want to inspect it within your test
         /// </summary>
         /// <param name="actionName"></param>
