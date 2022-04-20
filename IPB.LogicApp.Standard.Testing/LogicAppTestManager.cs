@@ -2,6 +2,7 @@
 using IPB.LogicApp.Standard.Testing.Model;
 using IPB.LogicApp.Standard.Testing.Model.WorkflowRunActionDetails;
 using IPB.LogicApp.Standard.Testing.Model.WorkflowRunOverview;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
 
@@ -90,6 +91,20 @@ namespace IPB.LogicApp.Standard.Testing
             _workflowRunHelper.GetRunDetails();
         }
 
+        public WorkflowRunList GetRunsSince(DateTime startDate)
+        {
+            return _workflowHelper.GetRunsSince(startDate);
+        }
+
+        public RunDetails GetMostRecentRunSince(DateTime startDate)
+        {
+            return _workflowHelper.GetMostRecentRunDetails(startDate);
+        }
+
+        public string GetMostRecentRunIdSince(DateTime startDate)
+        {
+            return _workflowHelper.GetMostRecentRunDetails(startDate).id;
+        }
 
         /// <summary>
         /// Get the overall status of the workfow
@@ -115,6 +130,18 @@ namespace IPB.LogicApp.Standard.Testing
         }
 
         /// <summary>
+        /// Get the action json if you want to inspect it within your test
+        /// </summary>
+        /// <param name="actionName"></param>
+        /// <param name="refreshActions"></param>
+        /// <param name="formatActionName"></param>
+        /// <returns></returns>
+        public JToken GetActionJson(string actionName, bool refreshActions = false, bool formatActionName = true)
+        {
+            return _workflowRunHelper.GetActionJson(actionName, refreshActions, formatActionName);
+        }
+
+        /// <summary>
         /// Get the trigger result so you can check its status
         /// </summary>
         /// <param name="refresh"></param>
@@ -123,5 +150,5 @@ namespace IPB.LogicApp.Standard.Testing
         {
             return _workflowRunHelper.GetTriggerStatus(refresh);
         }
-        }
+    }
 }

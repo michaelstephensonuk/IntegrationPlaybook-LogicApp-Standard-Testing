@@ -15,7 +15,9 @@ namespace LogicApp.Testing.Example
         [TestMethod]
         public void GreenPath()
         {
-            var workflowName = "Hello-World-1";
+            var startDateTime = DateTime.UtcNow;
+
+            var workflowName = "hello-world-stateful";
 
             var logicAppTestManager = LogicAppTestManagerBuilder.Build(workflowName);
 
@@ -50,6 +52,14 @@ namespace LogicApp.Testing.Example
             //Check the workflow run was successful
             var workflowRunStatus = logicAppTestManager.GetWorkflowRunStatus();
             Assert.AreEqual(WorkflowRunStatus.Succeeded, workflowRunStatus);
+
+
+            //Check some of the additional helper methods
+            var actionStatusJson = logicAppTestManager.GetActionJson("Response");
+
+            var runsSince = logicAppTestManager.GetRunsSince(startDateTime);
+            var runSince = logicAppTestManager.GetMostRecentRunSince(startDateTime);
+            var runidSince = logicAppTestManager.GetMostRecentRunIdSince(startDateTime);
         }
     }
 }

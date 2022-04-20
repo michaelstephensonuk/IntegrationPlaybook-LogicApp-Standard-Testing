@@ -1,6 +1,10 @@
-﻿using IPB.LogicApp.Standard.Testing.Model.WorkflowRunActionDetails;
+﻿using IPB.LogicApp.Standard.Testing.Model;
+using IPB.LogicApp.Standard.Testing.Model.WorkflowRunActionDetails;
 using IPB.LogicApp.Standard.Testing.Model.WorkflowRunOverview;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Linq;
 using System.Net.Http;
 
 namespace IPB.LogicApp.Standard.Testing.Helpers
@@ -51,6 +55,22 @@ namespace IPB.LogicApp.Standard.Testing.Helpers
             return action.ActionStatus;
         }
 
+        public JToken GetActionJson(string actionName, bool refreshActions = false, bool formatActionName = true)
+        {
+            //The run history usually formats the name of the action to not have spaces and it replaces then with underscores
+            if (formatActionName)
+                actionName = actionName.Replace(" ", "_");
+
+            if (refreshActions || _runActions == null)
+                _runActions = GetRunActions();
+
+            var action = _runActions.properties.GetActionJson(actionName);
+            if (action == null)
+                throw new Exception("The action does not exist");
+
+            return action;
+        }
+
         public TriggerStatus GetTriggerStatus(bool refresh = false)
         {
             if (refresh || _runActions == null)
@@ -81,6 +101,8 @@ namespace IPB.LogicApp.Standard.Testing.Helpers
             }
             return _runDetails;
         }
+
+        
 
         public WorkflowRunActionDetails GetRunActions(bool refresh = false)
         {

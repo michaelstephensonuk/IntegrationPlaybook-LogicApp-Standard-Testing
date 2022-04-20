@@ -27,6 +27,15 @@ namespace IPB.LogicApp.Standard.Testing.Model.WorkflowRunActionDetails
 
             return JsonConvert.DeserializeObject<ActionDetails>(action.ToString());
         }
+
+        public JToken GetActionJson(string name)
+        {
+            var action = actions[name];
+            if (action == null)
+                return null;
+
+            return action;
+        }
     }
     
     public class ActionDetails

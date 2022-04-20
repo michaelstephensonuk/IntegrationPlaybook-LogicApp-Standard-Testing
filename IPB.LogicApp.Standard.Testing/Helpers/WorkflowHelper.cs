@@ -1,5 +1,9 @@
 ﻿using IPB.LogicApp.Standard.Testing.Model;
+using IPB.LogicApp.Standard.Testing.Model.WorkflowRunOverview;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Linq;
 using System.Net.Http;
 
 namespace IPB.LogicApp.Standard.Testing.Helpers
@@ -84,6 +88,36 @@ namespace IPB.LogicApp.Standard.Testing.Helpers
             runHelper.RunId = runId;
             runHelper.ManagementApiHelper = ManagementApiHelper;
             return runHelper;
+        }
+
+        public RunDetails GetMostRecentRunDetails(DateTime startDate)
+        {
+            var dateString = startDate.ToString("yyyy-MM-ddTHH:mm:ssZ");
+            var url = $@"subscriptions/{SubscriptionId}/resourceGroups/{ResourceGroupName}/providers/Microsoft.Web/sites/{LogicAppName}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{WorkflowName}/runs?api-version={ApiSettings.ApiVersion}&$top=1&$filter=startTime ge {dateString}";
+
+            var client = ManagementApiHelper.GetHttpClient();
+
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            var responseText = response.Content.ReadAsStringAsync().Result;
+            response.EnsureSuccessStatusCode();
+
+            var runList = JsonConvert.DeserializeObject<WorkflowRunList>(responseText);
+
+            return runList.Value.FirstOrDefault();
+        }
+
+        public WorkflowRunList GetRunsSince(DateTime startDate)
+        {
+            var dateString = startDate.ToString("yyyy-MM-ddTHH:mm:ssZ");
+            var url = $@"subscriptions/{SubscriptionId}/resourceGroups/{ResourceGroupName}/providers/Microsoft.Web/sites/{LogicAppName}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{WorkflowName}/runs?api-version={ApiSettings.ApiVersion}&$filter=startTime ge {dateString}";
+
+            var client = ManagementApiHelper.GetHttpClient();
+
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            var responseText = response.Content.ReadAsStringAsync().Result;
+            response.EnsureSuccessStatusCode();
+
+            return JsonConvert.DeserializeObject<WorkflowRunList>(responseText);
         }
     }
 }

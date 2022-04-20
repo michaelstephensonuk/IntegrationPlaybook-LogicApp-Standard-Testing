@@ -20,7 +20,7 @@ namespace LogicApp.Testing.Example.Features.HelloWorldStateless
         public Steps(CommonTestContext testContext)
         {
             TestContext = testContext;
-            TestContext.WorkflowName = "Hello-World-1";
+            TestContext.WorkflowName = "hello-world-stateless";
         }
 
         [Given(@"I have a request to send to the logic app")]
