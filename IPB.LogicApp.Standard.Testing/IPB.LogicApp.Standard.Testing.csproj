@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Company>Integration Playbook</Company>
     <Description>This is a library to help you perform integration testing with logic apps standard.  I usually use this with a BDD framework like Specflow to help you build good integration tests which can also help you document how your integrations work.
 

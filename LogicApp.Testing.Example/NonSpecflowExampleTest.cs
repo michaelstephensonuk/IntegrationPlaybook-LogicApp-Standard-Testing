@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 
 namespace LogicApp.Testing.Example
 {
@@ -16,6 +17,9 @@ namespace LogicApp.Testing.Example
         public void GreenPath()
         {
             var startDateTime = DateTime.UtcNow;
+            Thread.Sleep(new TimeSpan(0, 0, 10)); //Sleep here to handle any clock sync issues
+
+            Console.WriteLine($"Date for start of test: {startDateTime.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ")}");
 
             var workflowName = "hello-world-stateful";
 
@@ -60,8 +64,16 @@ namespace LogicApp.Testing.Example
             var outputMessage = logicAppTestManager.GetActionOutputMessage("Response");
 
             var runsSince = logicAppTestManager.GetRunsSince(startDateTime);
+            Assert.IsTrue(runsSince.Value.Count > 0);
+
             var runSince = logicAppTestManager.GetMostRecentRunSince(startDateTime);
+            Assert.IsTrue(runsSince.Value.Count == 1);
+
+            var runDetails = logicAppTestManager.GetMostRecentRun();
+            Assert.IsNotNull(runDetails);
+
             var runidSince = logicAppTestManager.GetMostRecentRunIdSince(startDateTime);
+            Assert.IsNotNull(runidSince);
         }
     }
 }

@@ -101,6 +101,11 @@ namespace IPB.LogicApp.Standard.Testing
             return _workflowHelper.GetMostRecentRunDetails(startDate);
         }
 
+        public RunDetails GetMostRecentRun()
+        {
+            return _workflowHelper.GetMostRecentRun();
+        }
+
         public string GetMostRecentRunIdSince(DateTime startDate)
         {
             return _workflowHelper.GetMostRecentRunDetails(startDate).id;

@@ -92,11 +92,31 @@ namespace IPB.LogicApp.Standard.Testing.Helpers
 
         public RunDetails GetMostRecentRunDetails(DateTime startDate)
         {
-            var dateString = startDate.ToString("yyyy-MM-ddTHH:mm:ssZ");
-            var url = $@"subscriptions/{SubscriptionId}/resourceGroups/{ResourceGroupName}/providers/Microsoft.Web/sites/{LogicAppName}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{WorkflowName}/runs?api-version={ApiSettings.ApiVersion}&$top=1&$filter=startTime ge {dateString}";
+            var dateString = startDate.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ");
+            
+            var url = $@"subscriptions/{SubscriptionId}/resourceGroups/{ResourceGroupName}/providers/Microsoft.Web/sites/{LogicAppName}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{WorkflowName}/runs?api-version={ApiSettings.ApiVersion}&$filter=startTime ge {dateString}";
 
             var client = ManagementApiHelper.GetHttpClient();
 
+            Console.WriteLine($"Query for recent workflow run");
+            Console.WriteLine($"{url}");
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            var responseText = response.Content.ReadAsStringAsync().Result;
+            response.EnsureSuccessStatusCode();
+
+            var runList = JsonConvert.DeserializeObject<WorkflowRunList>(responseText);
+
+            return runList.Value.FirstOrDefault();
+        }
+
+        public RunDetails GetMostRecentRun()
+        {            
+            var url = $@"subscriptions/{SubscriptionId}/resourceGroups/{ResourceGroupName}/providers/Microsoft.Web/sites/{LogicAppName}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{WorkflowName}/runs?api-version={ApiSettings.ApiVersion}&$top=1";
+
+            var client = ManagementApiHelper.GetHttpClient();
+
+            Console.WriteLine($"Query for recent workflow run");
+            Console.WriteLine($"{url}");
             HttpResponseMessage response = client.GetAsync(url).Result;
             var responseText = response.Content.ReadAsStringAsync().Result;
             response.EnsureSuccessStatusCode();
@@ -108,11 +128,13 @@ namespace IPB.LogicApp.Standard.Testing.Helpers
 
         public WorkflowRunList GetRunsSince(DateTime startDate)
         {
-            var dateString = startDate.ToString("yyyy-MM-ddTHH:mm:ssZ");
+            var dateString = startDate.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ");
             var url = $@"subscriptions/{SubscriptionId}/resourceGroups/{ResourceGroupName}/providers/Microsoft.Web/sites/{LogicAppName}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{WorkflowName}/runs?api-version={ApiSettings.ApiVersion}&$filter=startTime ge {dateString}";
 
             var client = ManagementApiHelper.GetHttpClient();
 
+            Console.WriteLine($"Query for workflow runs since");
+            Console.WriteLine($"{url}");
             HttpResponseMessage response = client.GetAsync(url).Result;
             var responseText = response.Content.ReadAsStringAsync().Result;
             response.EnsureSuccessStatusCode();
