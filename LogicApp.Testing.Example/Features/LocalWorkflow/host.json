@@ -1,0 +1,19 @@
+{
+  "version": "2.0",
+  "extensionBundle": {
+    "id": "Microsoft.Azure.Functions.ExtensionBundle.Workflows",
+    "version": "[1.*, 2.0.0)"
+  },
+  "extensions": {
+    "workflow": {
+      "settings": {
+        "Runtime.FlowRetentionThreshold": "7.00:00:00",
+        "Runtime.FlowRunRetryableActionJobCallback.ActionJobExecutionTimeout": "00:10:00",
+        "Runtime.Backend.Stateless.FlowDefaultForeachItemsLimit": "10000",
+        "Runtime.Backend.HttpOperation.RequestTimeout": "00:04:00",
+        "Runtime.Backend.HttpOperation.DefaultRetryCount": "4",
+        "Runtime.Backend.HttpOperation.DefaultRetryInterval": "00:00:10"
+      }
+    }
+  }
+}

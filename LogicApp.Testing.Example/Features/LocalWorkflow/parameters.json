@@ -1,0 +1,6 @@
+{
+  "postman_echo_url": {
+    "type": "String",
+    "value": "@appsetting('postman_echo_url')"
+  }
+}

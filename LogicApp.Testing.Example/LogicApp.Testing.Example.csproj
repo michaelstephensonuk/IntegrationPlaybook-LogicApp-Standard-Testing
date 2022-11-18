@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IPB.LogicApp.Standard.Testing.Local\IPB.LogicApp.Standard.Testing.Local.csproj" />
     <ProjectReference Include="..\IPB.LogicApp.Standard.Testing\IPB.LogicApp.Standard.Testing.csproj" />
   </ItemGroup>
 

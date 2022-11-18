@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Company>Integration Playbook</Company>
+		<Description>
+			This is a library to help you perform integration testing with logic apps standard.  I usually use this with a BDD framework like Specflow to help you build good integration tests which can also help you document how your integrations work.
+
+			You can findout more about the project on github or in the integration playbook on the below links:
+
+			- https://github.com/michaelstephensonuk/IntegrationPlaybook-LogicApp-Standard-Testing
+			- https://www.integration-playbook.io/docs/integration-testing
+
+		</Description>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageProjectUrl>https://github.com/michaelstephensonuk/IntegrationPlaybook-LogicApp-Standard-Testing</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/michaelstephensonuk/IntegrationPlaybook-LogicApp-Standard-Testing</RepositoryUrl>
+		<Copyright>Integration-Playbook.io</Copyright>
+		<Authors>Michael Stephenson</Authors>
+		<PackageLicenseFile>License.md</PackageLicenseFile>
+		<PackageId>$(AssemblyName)</PackageId>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\License.md" Link="License.md">
+      <PackagePath></PackagePath>
+      <Pack>True</Pack>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WireMock.Net" Version="1.5.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IPB.LogicApp.Standard.Testing\IPB.LogicApp.Standard.Testing.csproj" />
+  </ItemGroup>
+
+</Project>

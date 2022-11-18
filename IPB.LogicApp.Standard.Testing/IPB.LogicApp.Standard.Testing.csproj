@@ -17,6 +17,7 @@ You can findout more about the project on github or in the integration playbook 
     <Copyright>Integration-Playbook.io</Copyright>
     <Authors>Michael Stephenson</Authors>
     <PackageLicenseFile>License.md</PackageLicenseFile>
+    <PackageId>$(AssemblyName)</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

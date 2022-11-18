@@ -2,7 +2,6 @@
 using IPB.LogicApp.Standard.Testing.Model.WorkflowRunOverview;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
