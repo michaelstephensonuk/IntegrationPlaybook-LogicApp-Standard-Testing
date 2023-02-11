@@ -22,8 +22,18 @@ namespace IPB.LogicApp.Standard.Testing
 
             //Can get these from Config in the real world
             args.ClientId = config["logicAppTestManager:ClientId"];
+            if(string.IsNullOrEmpty(args.ClientId))
+                args.ClientId = config["AZURE_CLIENT_ID"];
+
             args.ClientSecret = config["logicAppTestManager:ClientSecret"];
+            if (string.IsNullOrEmpty(args.ClientSecret))
+                args.ClientSecret = config["AZURE_CLIENT_SECRET"];
+
             args.TenantId = config["logicAppTestManager:TenantId"];
+            if (string.IsNullOrEmpty(args.TenantId))
+                args.TenantId = config["AZURE_TENANT_ID"];
+
+
             args.LogicAppName = config["logicAppTestManager:LogicAppName"];
             args.ResourceGroupName = config["logicAppTestManager:ResourceGroupName"];
             args.SubscriptionId = config["logicAppTestManager:SubscriptionId"];

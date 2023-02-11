@@ -79,6 +79,28 @@ namespace IPB.LogicApp.Standard.Testing.Helpers
             return _runActions.properties.trigger.TriggerStatus;
         }
 
+        public TriggerDetails GetTriggerDetails(bool refresh = false)
+        {
+            if (refresh || _runActions == null)
+                _runActions = GetRunActions(refresh);
+
+            return _runActions.properties.trigger;
+        }
+
+        public string GetTriggerMessage(bool refresh = false)
+        {
+            if (refresh || _runActions == null)
+                _runActions = GetRunActions(refresh);
+
+            var url = _runActions.properties.trigger.outputsLink.uri;
+            var httpClient = new HttpClient();
+
+            HttpResponseMessage response = httpClient.GetAsync(url).Result;
+            var responseText = response.Content.ReadAsStringAsync().Result;
+            response.EnsureSuccessStatusCode();
+            return responseText;
+        }
+
 
 
         /// <summary>

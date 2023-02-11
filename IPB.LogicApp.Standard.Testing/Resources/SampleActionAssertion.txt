@@ -1,0 +1,2 @@
+	actionStatus = logicAppTestManager.GetActionStatus("{{ActionName}}");
+	Assert.AreEqual(actionStatus, ActionStatus.{{ActionStatus}});

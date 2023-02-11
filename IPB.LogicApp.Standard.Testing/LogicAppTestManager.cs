@@ -2,9 +2,11 @@
 using IPB.LogicApp.Standard.Testing.Model;
 using IPB.LogicApp.Standard.Testing.Model.WorkflowRunActionDetails;
 using IPB.LogicApp.Standard.Testing.Model.WorkflowRunOverview;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
+using System.Text;
 
 namespace IPB.LogicApp.Standard.Testing
 {
@@ -188,6 +190,79 @@ namespace IPB.LogicApp.Standard.Testing
         public TriggerStatus GetTriggerStatus(bool refresh = false)
         {
             return _workflowRunHelper.GetTriggerStatus(refresh);
+        }
+
+        public string GetTriggerMessage(bool refresh = false)
+        {
+            return _workflowRunHelper.GetTriggerMessage(refresh);
+        }
+
+        public GeneratedTestSample GenerateTestSample(string runId, bool includeSkippedSteps = false)
+        {
+            var sample = new GeneratedTestSample();
+
+            _workflowRunHelper = _workflowHelper.GetWorkflowRunHelper(runId);
+            var runActions = _workflowRunHelper.GetRunActions();
+            var runDetails = _workflowRunHelper.GetRunDetails();
+
+            var testCodeBuilder = new StringBuilder();
+            testCodeBuilder.Append(Properties.Resources.SampleTestCode);
+            testCodeBuilder.Replace("{{WorkflowName}}", _args.WorkflowName);
+
+            var assertionsBuilder = new StringBuilder();
+            foreach (JProperty actionProperty in (JToken)runActions.properties.actions)
+            { 
+                string name = actionProperty.Name;
+                JToken value = actionProperty.Value;
+                var actionDetails = JsonConvert.DeserializeObject<ActionDetails>(value.ToString());
+
+                var includeAction = true;
+
+                if (includeSkippedSteps == false && actionDetails.ActionStatus == ActionStatus.Skipped)
+                    includeAction = false;
+
+                if (includeAction)
+                {
+                    var tempText = Properties.Resources.SampleActionAssertion;
+                    tempText = tempText.Replace("{{ActionName}}", name);
+                    tempText = tempText.Replace("{{ActionStatus}}", actionDetails.status);
+                    assertionsBuilder.Append(tempText);
+                    assertionsBuilder.Append(Environment.NewLine);
+                }
+            }
+
+            testCodeBuilder.Replace("{{ActionAssertions}}", assertionsBuilder.ToString());
+
+            sample.TestSampleCode = testCodeBuilder.ToString();
+
+            var triggerMessage = _workflowRunHelper.GetTriggerMessage();
+            try
+            {
+                //We will try to get the message body if its a json message such as HTTP with headers
+                var jsonTriggerMessage = JObject.Parse(triggerMessage);
+                if(jsonTriggerMessage.ContainsKey("body") &&
+                    jsonTriggerMessage.ContainsKey("headers"))
+                {
+                    var body = jsonTriggerMessage["body"];
+                    triggerMessage = body.ToString(Formatting.Indented);
+                }
+            }
+            catch
+            {
+
+            }
+            sample.TriggerMessage = triggerMessage;
+
+            Console.WriteLine("Sample Code");
+            Console.WriteLine("===========");
+
+            Console.WriteLine(testCodeBuilder.ToString());
+
+            Console.WriteLine("Sample Message for Test");
+            Console.WriteLine("===========");
+            Console.WriteLine(triggerMessage);
+            Console.WriteLine("");
+            return sample;
         }
     }
 }

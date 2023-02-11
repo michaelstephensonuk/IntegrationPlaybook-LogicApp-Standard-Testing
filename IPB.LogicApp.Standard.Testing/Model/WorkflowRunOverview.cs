@@ -38,6 +38,8 @@ namespace IPB.LogicApp.Standard.Testing.Model.WorkflowRunOverview
     {
         Succeeded,
         Failed,
-        Skipped
+        Skipped,
+        Running,
+        Cancelled
     }
 }

@@ -44,6 +44,8 @@ namespace IPB.LogicApp.Standard.Testing.Model.WorkflowRunActionDetails
         public DateTime endTime { get; set; }
         public string status { get; set; }
 
+        public ActionContent outputsLink { get; set; }
+
         public ActionStatus ActionStatus
         {
             get
@@ -69,6 +71,8 @@ namespace IPB.LogicApp.Standard.Testing.Model.WorkflowRunActionDetails
         public DateTime endTime { get; set; }
         public string status { get; set; }
 
+        public TriggerContent outputsLink { get; set; }
+
         public TriggerStatus TriggerStatus
         {
             get
@@ -76,6 +80,16 @@ namespace IPB.LogicApp.Standard.Testing.Model.WorkflowRunActionDetails
                 return (TriggerStatus)Enum.Parse(typeof(TriggerStatus), status);
             }
         }
+    }
+
+    public class ActionContent
+    {
+        public string uri { get; set; }
+    }
+
+    public class TriggerContent
+    {
+        public string uri { get; set; }
     }
 
     public enum TriggerStatus
