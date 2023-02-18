@@ -61,6 +61,7 @@ namespace IPB.LogicApp.Standard.Testing.Model.WorkflowRunActionDetails
         Succeeded,
         Failed,
         Skipped,
+        Running,
         ActionDoesntExistInRunHistory
     }
 
