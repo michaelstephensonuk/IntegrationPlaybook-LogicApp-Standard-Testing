@@ -19,7 +19,7 @@ namespace IPB.LogicApp.Standard.Testing.Model
         {
             get
             {
-                return HttpResponse.Headers.FirstOrDefault(i => i.Key == "x-ms-workflow-run-id").Value.FirstOrDefault();               
+                return HttpResponse.Headers.FirstOrDefault(i => i.Key == "x-ms-workflow-run-id").Value?.FirstOrDefault();               
             }
         }
 
@@ -27,7 +27,7 @@ namespace IPB.LogicApp.Standard.Testing.Model
         {
             get
             {
-                return HttpResponse.Headers.FirstOrDefault(i => i.Key == "x-ms-workflow-name").Value.FirstOrDefault();
+                return HttpResponse.Headers.FirstOrDefault(i => i.Key == "x-ms-workflow-name").Value?.FirstOrDefault();
             }
         }
 
@@ -35,7 +35,7 @@ namespace IPB.LogicApp.Standard.Testing.Model
         {
             get
             {
-                return HttpResponse.Headers.FirstOrDefault(i => i.Key == "x-ms-client-tracking-id").Value.FirstOrDefault();
+                return HttpResponse.Headers.FirstOrDefault(i => i.Key == "x-ms-client-tracking-id").Value?.FirstOrDefault();
             }
         }
 
@@ -43,7 +43,7 @@ namespace IPB.LogicApp.Standard.Testing.Model
         {
             get
             {
-                return HttpResponse.Headers.FirstOrDefault(i => i.Key == "x-ms-request-id").Value.FirstOrDefault();
+                return HttpResponse.Headers.FirstOrDefault(i => i.Key == "x-ms-request-id").Value?.FirstOrDefault();
             }
         }
 
@@ -51,7 +51,7 @@ namespace IPB.LogicApp.Standard.Testing.Model
         {
             get
             {
-                return HttpResponse.Headers.FirstOrDefault(i => i.Key == "x-ms-tracking-id").Value.FirstOrDefault();
+                return HttpResponse.Headers.FirstOrDefault(i => i.Key == "x-ms-tracking-id").Value?.FirstOrDefault();
             }
         }
 
@@ -59,7 +59,7 @@ namespace IPB.LogicApp.Standard.Testing.Model
         {
             get
             {
-                return HttpResponse.Headers.FirstOrDefault(i => i.Key == "x-ms-trigger-history-name").Value.FirstOrDefault();
+                return HttpResponse.Headers.FirstOrDefault(i => i.Key == "x-ms-trigger-history-name").Value?.FirstOrDefault();
             }
         }
 
@@ -67,7 +67,7 @@ namespace IPB.LogicApp.Standard.Testing.Model
         {
             get
             {
-                return HttpResponse.Headers.FirstOrDefault(i => i.Key == "x-ms-workflow-version").Value.FirstOrDefault();
+                return HttpResponse.Headers.FirstOrDefault(i => i.Key == "x-ms-workflow-version").Value?.FirstOrDefault();
             }
         }
     }
