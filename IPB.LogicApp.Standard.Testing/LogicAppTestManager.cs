@@ -28,6 +28,7 @@ namespace IPB.LogicApp.Standard.Testing
         {
             //Setup authentication helper
             _authHelper = new AuthenticationHelper();
+            _authHelper.UseDefaultCredential = _args.UseDefaultCredential;
             _authHelper.ClientId = _args.ClientId;
             _authHelper.ClientSecret = _args.ClientSecret;
             _authHelper.TenantId = _args.TenantId;
