@@ -21,7 +21,7 @@ namespace IPB.LogicApp.Standard.Testing.Helpers
 
         public HttpClient GetHttpClient()
         {
-            var accessToken = _authHelper.GetBearerTokenFromAzureAD();
+            var accessToken = _authHelper.GetBearerToken();
             _managementApiClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
             return _managementApiClient;
         }
