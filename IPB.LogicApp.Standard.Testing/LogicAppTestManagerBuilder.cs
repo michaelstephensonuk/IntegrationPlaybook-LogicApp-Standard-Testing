@@ -21,6 +21,8 @@ namespace IPB.LogicApp.Standard.Testing
             var args = new LogicAppTestManagerArgs();
 
             //Can get these from Config in the real world
+            args.UseDefaultCredential = bool.Parse(config["logicAppTestManager:UseDefaultCredential"]);
+
             args.ClientId = config["logicAppTestManager:ClientId"];
             if(string.IsNullOrEmpty(args.ClientId))
                 args.ClientId = config["AZURE_CLIENT_ID"];
@@ -57,6 +59,7 @@ namespace IPB.LogicApp.Standard.Testing
             var args = new LogicAppTestManagerArgs();
 
             //Can get these from Config in the real world
+            args.UseDefaultCredential = bool.Parse(config["logicAppTestManager:UseDefaultCredential"]);
             args.ClientId = config["logicAppTestManager:ClientId"];
             args.ClientSecret = config["logicAppTestManager:ClientSecret"];
             args.TenantId = config["logicAppTestManager:TenantId"];

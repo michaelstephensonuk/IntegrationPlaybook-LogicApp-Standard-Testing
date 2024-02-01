@@ -28,11 +28,19 @@ azure management api to query the data we need to be able to find, trigger and i
 # Setting up the Logic App Test Manager
 
 To use the Logic App Test Manager we need to supply a bunch of parameters and then call the Setup() method which will connect to Azure and prepare for you to execute your tests.
-The parameters needed are:
+
+You can authenticate to the Azure Management API using either the Azure SDK default credential, or an Azure AD app registration. This can be set using this parameter:
+
+- UseDefaultCredential = if true, the default credential will be used - otherwise, the app registration details will be used
+
+The parameters needed for authentication using an app registration are:
 
 - ClientID = a client id for an Azure AD app registration which you have set up
 - ClientSecret = The secret for your azure ad app registration
 - TenantId = The tenant id for your azure ad
+
+The other parameters needed are:
+
 - LogicAppName = The logic app name in Azure 
 - ResourceGroupName = The resource group that the logic app lives in
 - SubscriptionId = The subscription id the logic app lives in

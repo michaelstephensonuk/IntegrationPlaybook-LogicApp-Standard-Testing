@@ -1,15 +1,19 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Azure.Core;
+using Azure.Identity;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Runtime.Caching;
 using System.Text;
+using System.Threading;
 
 namespace IPB.LogicApp.Standard.Testing.Helpers
 {
     public class AuthenticationHelper
     {
+        public bool UseDefaultCredential { get; set; }
         
         public string ClientId { get; set; }
         public string ClientSecret { get; set; }
@@ -52,10 +56,19 @@ namespace IPB.LogicApp.Standard.Testing.Helpers
         /// <returns></returns>
         public string GetBearerTokenFromAzureAD()
         {
+            const string scope = "https://management.azure.com/.default";
+
+            if (UseDefaultCredential)
+            {
+                var credential = new DefaultAzureCredential();
+                var tokenResult = credential.GetTokenAsync(new TokenRequestContext(new[] { scope }), CancellationToken.None).Result;
+                return tokenResult.Token;
+            }
+
             var args = new Dictionary<string, string>();
             var request = new StringBuilder();
             request.Append("grant_type=client_credentials");
-            request.Append($"&scope=https://management.azure.com/.default");
+            request.Append($"&scope=${scope}");
             request.Append($"&client_id={ClientId}");
             request.Append($"&client_secret={ClientSecret}");
             
